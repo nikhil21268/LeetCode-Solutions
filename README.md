@@ -1,5 +1,5 @@
 # LeetCode-Solutions
-Solutions pertaining to LeetCode problems that I primarily solved using Java programming language.
+Solutions pertaining to some of the LeetCode problems that I primarily solved using Java programming language.
 
 # Copyright and License
 
