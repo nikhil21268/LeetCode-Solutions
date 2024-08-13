@@ -1,24 +1,104 @@
 package RemoveDuplicatesFromSortedArr2;
 
+
 import java.util.HashMap;
-// [0,0,1,1,1,1,2,3,3]
-// [-,-,-,-,L,-,R,-,-]
-// nextDuplicates = 0
-// currNum = 1
+import java.util.HashSet;
+
 class Solution {
     public int removeDuplicates(int[] nums) {
+
+        int n = nums.length;
+
+        if(n <= 2) return n;
+
         int l = 0;
         int r = 0;
-        while(r < nums.length){
-            int count = 1;
-            while(r < nums.length-1 && nums[r] == nums[r+1]){
+        int lStore = -1;
+
+        int idx = -1;
+
+        while (l < n){
+
+            while(r < n && nums[r] == nums[l]){
+
                 r++;
-                count++;
             }
-            for(int i = 0; i < Math.min(count, 2); i++){
-                nums[l++] = nums[r];
+
+            lStore = l;
+
+            int flg = 0;
+
+            if(r - l > 2){
+
+                l = l + 2;
+
+                lStore = l;
+
+                idx = lStore;
+
+                while(r < n){
+
+                    int temp = nums[l];
+
+                    nums[l] = nums[r];
+
+                    nums[r] = temp;
+
+                    flg = 1;
+                    l++;
+                    r++;
+
+                }
+
+
+
+                l = lStore;
+                r = l;
+
             }
-            r++;
-        } return l;
+
+            else{
+
+                idx = l;
+
+                l = r;
+
+                if(flg == 0) idx = l;
+
+                lStore = l;
+            }
+
+        }
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+
+            if(i < 2) {
+
+                if(map.containsKey(nums[i])) map.put(nums[i], map.get(nums[i]) + 1);
+
+                else{
+
+                    map.put(nums[i], 1);
+                }
+
+                continue;
+            }
+
+            if(map.containsKey(nums[i])) map.put(nums[i], map.get(nums[i]) + 1);
+
+            else{
+
+                map.put(nums[i], 1);
+            }
+
+            if(map.get(nums[i]) > 2) return i;
+
+
+            if(nums[i-2] == nums[i] && nums[i] == nums[i-1]) return i;
+        }
+
+        return idx;
     }
 }

@@ -1,59 +1,121 @@
 package Practice.AddTwoNumbers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 class ListNode {
-      int val;
-      ListNode next;
-      ListNode() {}
-      ListNode(int val) { this.val = val; }
-      ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-  }
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        List<Integer> res = new ArrayList<>();
+
+        ListNode resHead = new ListNode(-1);
+
+        ListNode res = resHead;
+
+        ListNode head1 = l1;
+
+        ListNode head2 = l2;
+
+        int digit = -1;
         int carry = 0;
-        int currSum = 0;
-        while(l1 != null && l2 != null){
-            currSum = l1.val + l2.val + carry;
-            if(currSum >= 10){
-                carry = currSum / 10;
-                currSum = currSum % 10;
+
+
+
+
+        while(head1 != null && head2 != null){
+
+            digit = head1.val + head2.val + carry;
+
+            if(digit > 9){
+
+                carry = digit / 10;
+
+                digit = digit % 10;
             }
+
             else carry = 0;
-            res.add(currSum);
-            l1 = l1.next;
-            l2 = l2.next;
+
+            ListNode newNode = new ListNode(digit);
+
+            res.next = newNode;
+
+            res = res.next;
+
+            head1 = head1.next;
+            head2 = head2.next;
+
         }
-        while(l1 != null){
-            currSum = l1.val + carry;
-            if(currSum >= 10){
-                carry = currSum / 10;
-                currSum = currSum % 10;
+
+        while(head1 != null){
+
+            digit = head1.val + carry;
+
+            if(digit > 9){
+
+                carry = digit / 10;
+
+                digit = digit % 10;
             }
+
             else carry = 0;
-            res.add(currSum);
-            l1 = l1.next;
+
+            ListNode newNode = new ListNode(digit);
+
+            res.next = newNode;
+
+            res = res.next;
+
+            head1 = head1.next;
+
         }
-        while(l2 != null){
-            currSum = l2.val + carry;
-            if(currSum >= 10){
-                carry = currSum / 10;
-                currSum = currSum % 10;
-            } else carry = 0;
-            res.add(currSum);
-            l2 = l2.next;
+
+        while(head2 != null){
+
+            digit = head2.val + carry;
+
+            if(digit > 9){
+
+                carry = digit / 10;
+
+                digit = digit % 10;
+            }
+
+            else carry = 0;
+
+            ListNode newNode = new ListNode(digit);
+
+            res.next = newNode;
+
+            res = res.next;
+
+            head2 = head2.next;
+
         }
-        if(carry > 0){
-            res.add(carry);
+
+        while(carry != 0){
+
+            digit = carry;
+
+            if(digit > 9){
+
+                carry = digit / 10;
+
+                digit = digit % 10;
+            }
+
+            else carry = 0;
+
+            ListNode newNode = new ListNode(digit);
+
+            res.next = newNode;
+
+            res = res.next;
+
         }
-        ListNode head = new ListNode(-1);
-        ListNode headStore = head;
-        for(int i: res){
-            ListNode node = new ListNode(i);
-            headStore.next = node;
-            headStore = node;
-        } return head.next;
+
+        return resHead.next;
     }
 }

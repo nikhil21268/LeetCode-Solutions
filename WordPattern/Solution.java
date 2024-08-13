@@ -1,47 +1,62 @@
 package WordPattern;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.HashMap;
-import java.util.HashSet;
 
 class Solution {
     public boolean wordPattern(String pattern, String s) {
-        HashMap<Character, Integer> setPattern = new HashMap<>();
-        HashMap<String, Integer> setS = new HashMap<>();
 
-        int idx = 0;
-        ArrayList<Integer> firstPattern = new ArrayList<>();
-        ArrayList<Integer> secondPattern = new ArrayList<>();
+        HashMap<String, Integer> map = new HashMap<>();
 
+        StringBuilder sb = new StringBuilder();
+
+        String[] strArr = s.split(" ");
+
+
+        int idx = 1;
+        for(String str: strArr){
+
+            if(map.containsKey(str)){
+
+                sb.append(map.get(str));
+            }
+
+            else{
+
+                map.put(str, idx);
+
+                sb.append(idx);
+
+                idx++;
+            }
+        }
+
+        StringBuilder sb2 = new StringBuilder();
+
+        HashMap<Character, Integer> map2 = new HashMap<>();
+
+        idx = 1;
         for(char c: pattern.toCharArray()){
-            if(!setPattern.containsKey(c)){
+
+            if(map2.containsKey(c)){
+
+                sb2.append(map2.get(c));
+            }
+
+            else{
+
+                map2.put(c, idx);
+
+                sb2.append(idx);
+
                 idx++;
-                setPattern.put(c, idx);
-            }
-            firstPattern.add(setPattern.get(c));
-        }
-
-        idx = 0;
-        for(String str: s.split(" ")){
-            if(!setS.containsKey(str)){
-                idx++;
-                setS.put(str, idx);
-            }
-            secondPattern.add(setS.get(str));
-        }
-
-
-        if(firstPattern.size() != secondPattern.size()){
-            return false;
-        }
-
-        for(int i = 0; i < firstPattern.size(); i++){
-            if(firstPattern.get(i) != secondPattern.get(i)){
-                return false;
             }
         }
 
-        return true;
+
+        if(sb.length() != sb2.length()) return false;
+
+        return sb.toString().equals(sb2.toString()) ? true : false;
+
     }
 }
