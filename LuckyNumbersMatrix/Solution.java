@@ -13,9 +13,21 @@ class Solution {
 
         for (int i = 0; i < matrix.length; i++) {
 
-            for (int j = 0; j < matrix[0].length; j++) {
+            int rowMax = Integer.MAX_VALUE;
 
-            }
+            for (int j = 0; j < matrix[0].length; j++) rowMax = Math.min(rowMax, matrix[i][j]);
+
+            minRows[i] = rowMax;
+
+        }
+
+        for (int i = 0; i < matrix[0].length; i++) {
+
+            int colMax = Integer.MIN_VALUE;
+
+            for (int j = 0; j < matrix.length; j++) colMax = Math.max(colMax, matrix[j][i]);
+
+            maxCols[i] = colMax;
 
         }
 
@@ -24,8 +36,8 @@ class Solution {
             for (int j = 0; j < matrix[0].length; j++) {
 
                 int num = matrix[i][j];
-                int minRow = Integer.MAX_VALUE;
-                int maxCol = Integer.MIN_VALUE;
+
+                if(num == minRows[i] && num == maxCols[j]) res.add(num);
 
             }
 
