@@ -2,6 +2,12 @@ package LongestPalindrome;
 
 class Solution {
     public int longestPalindrome(String s) {
-        return -1;
+
+        int res = 0;
+
+
+
+        return res == 0 ? 1 : res;
+
     }
 }
